@@ -1,7 +1,7 @@
 /* A.R.I.A. - Offline command engine: text normaliser, calculator, unit converter, timers, built-in actions and the run() matcher. */
 /* ===== ENGINE (Stage 4): becomes engine.js in Stage 9 ===== */
 let NAME="Athul";
-const norm=s=>s.toLowerCase().replace(/['’]/g,"").replace(/[^a-z0-9.+\-*/()^\s]/g," ").replace(/\s+/g," ").trim().replace(/[.!?]+$/,"");
+const norm=s=>s.toLowerCase().replace(/['’]/g,"").replace(/[×✕✖]/g,"*").replace(/÷/g,"/").replace(/[−–—]/g,"-").replace(/(\d),(?=\d{3})/g,"$1").replace(/[^a-z0-9.+\-*/()^\s]/g," ").replace(/\s+/g," ").trim().replace(/[.!?]+$/,"");
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const online=()=>typeof navigator!=="undefined"&&navigator.onLine;
 
@@ -15,7 +15,7 @@ function calc(e){const t=e.match(/\d+\.?\d*|[()+\-*/^]/g);if(!t)throw 0;let i=0;
  const v=add();if(i<t.length)throw 0;return v}
 
 function tryMath(s){
- const e=s.replace(/whats|what is|calculate|compute|work out|how much is/g,"").replace(/multiplied by|times|\bx\b/g,"*").replace(/divided by|over/g,"/").replace(/plus/g,"+").replace(/minus/g,"-").replace(/to the power of/g,"^").trim();
+ const e=s.replace(/whats|what is|calculate|compute|work out|how much is/g,"").replace(/(\d)\s*x\s*(\d)/g,"$1*$2").replace(/multiplied by|times|\bx\b/g,"*").replace(/divided by|over/g,"/").replace(/plus/g,"+").replace(/minus/g,"-").replace(/to the power of/g,"^").trim();
  if(!/\d/.test(e)||!/^[\d\s.+\-*/()^]+$/.test(e)||!/[+\-*/^]/.test(e.replace(/^-/,"")))return null;
  try{return "That's "+(+calc(e).toFixed(8))+"."}catch(x){return x==="div"?"Dividing by zero? Bold. Even I can't do that.":null}}
 
