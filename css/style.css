@@ -29,9 +29,10 @@ padding-top:env(safe-area-inset-top);
 overflow:hidden
 }
 
-button,input,select{
+button,input,select,textarea{
 font:inherit;
-color:inherit
+color:inherit;
+caret-color:var(--cy)
 }
 
 header{
