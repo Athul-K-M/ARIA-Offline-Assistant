@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ARIA">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>A.R.I.A.</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header><div class="mark">ARIA</div><div class="net"><i></i><span id="net">Offline ready</span></div></header>
+<main>
+
+<section id="core" class="on">
+  <div class="hud" id="hud" role="button" tabindex="0" aria-label="Tap to talk">
+    <svg viewBox="0 0 200 200" fill="none" stroke="#4fe3ff">
+      <circle cx="100" cy="100" r="96" stroke-opacity=".25"/>
+      <g class="r3"><circle cx="100" cy="100" r="90" stroke-width="1.2" stroke-dasharray="2 6" stroke-opacity=".8"/></g>
+      <g class="r1"><circle cx="100" cy="100" r="78" stroke-width="3" stroke-dasharray="60 24 14 24" stroke-opacity=".9"/></g>
+      <g class="r2"><circle cx="100" cy="100" r="64" stroke-width="1.5" stroke-dasharray="30 12" stroke-opacity=".7"/></g>
+      <circle class="core" cx="100" cy="100" r="50" stroke-width="1" stroke-opacity=".6" fill="rgba(79,227,255,.05)"/>
+    </svg>
+    <div class="read"><b>ARIA</b><span id="st">STANDING BY</span></div>
+  </div>
+  <p class="line" id="hint">Tap the core to talk.</p>
+  <div class="tiles">
+    <div class="tile"><small>Commands</small><b id="t1">0 active</b></div>
+    <div class="tile"><small>Memory</small><b id="t2">0 notes</b></div>
+    <div class="tile"><small>Timers</small><b id="t3">None running</b></div>
+    <div class="tile"><small>Connection</small><b id="t4">Offline ready</b></div>
+  </div>
+</section>
+
+<section id="chat">
+  <h2>Conversation</h2>
+  <p class="sub">Type or speak. Replies come from your own commands.</p>
+  <div class="log" id="log"><div class="b ai">Hello. All systems are operational. How can I help you?</div></div>
+  <form class="send" id="send"><input class="inp" id="msg" placeholder="Say something to ARIA" autocomplete="off"><button class="btn" type="button" id="mic" aria-label="Speak to ARIA">Talk</button><button class="btn">Send</button></form>
+</section>
+
+<section id="commands">
+  <h2>Commands</h2>
+  <p class="sub">What you say, what ARIA does, and what she answers. Only built-in actions can be assigned.</p>
+  <div class="bar"><button class="btn" id="addc">Add command</button></div>
+  <div id="cmds"></div>
+</section>
+
+<section id="replies">
+  <h2>Custom replies</h2>
+  <p class="sub">Phrases that trigger a reply, with several possible answers.</p>
+  <div class="bar"><button class="btn" id="addr">Add reply</button></div>
+  <div id="reps"></div>
+</section>
+
+<section id="persona">
+  <h2>Personality</h2>
+  <p class="sub">Intelligent, confident, a little teasing. Tune how much of each.</p>
+  <label class="f">Wit <em>8</em></label><input type="range" min="0" max="10" value="8">
+  <label class="f">Sass <em>7</em></label><input type="range" min="0" max="10" value="7">
+  <label class="f">Playfulness <em>7</em></label><input type="range" min="0" max="10" value="7">
+  <label class="f">Formality <em>5</em></label><input type="range" min="0" max="10" value="5">
+  <label class="f">How she addresses you</label><input class="inp" id="nm" value="Athul">
+</section>
+
+<section id="voice">
+  <h2>Voice</h2>
+  <p class="sub">Uses the voices installed on your iPhone. Download Siri or Enhanced voices in Settings, Accessibility, Spoken Content for a more natural sound.</p>
+  <div class="row"><div><b>Spoken replies</b></div><label class="sw"><input type="checkbox" id="vo" checked><span></span></label></div>
+  <div class="row"><div><b>Female voices only</b><small style="white-space:normal">Hides voices with male names. iOS does not label gender, so this is a best guess.</small></div><label class="sw"><input type="checkbox" id="fo" checked><span></span></label></div><label class="f">Voice</label><select id="vsel"></select><p class="sub" id="vhint" style="margin-top:8px"></p>
+  <label class="f">Speed <em id="rv">1.00</em></label><input type="range" id="rate" min=".5" max="1.5" step=".05" value="1">
+  <label class="f">Pitch <em id="pv">1.10</em></label><input type="range" id="pitch" min=".5" max="2" step=".05" value="1.1">
+  <div class="bar" style="justify-content:flex-start;margin-top:20px"><button class="btn" id="prev">Preview voice</button></div>
+</section>
+
+<section id="memory">
+  <h2>Memory</h2>
+  <p class="sub">Notes and facts stored only on this device.</p>
+  <div class="bar"><button class="btn" id="addn">Add note</button></div><input class="inp" id="nq" placeholder="Search notes" autocomplete="off">
+  <div id="mem"></div>
+</section>
+
+<section id="status">
+  <h2>System status</h2>
+  <p class="sub">Everything below is read locally.</p>
+  <div class="row"><div><b>Connection</b><small id="s1">Checking</small></div></div>
+  <div class="row"><div><b>Speech output</b><small id="s2">Checking</small></div></div>
+  <div class="row"><div><b>Speech input</b><small id="s3">Checking</small></div></div>
+  <div class="row"><div><b>Local storage</b><small id="s4">Checking</small></div></div>
+</section>
+
+<section id="settings">
+  <h2>Settings</h2>
+  <p class="sub">General options and your data.</p>
+  <div class="row"><div><b>Reduce motion</b><small>Stops the HUD animation</small></div><label class="sw"><input type="checkbox" id="calm"><span></span></label></div>
+  <div class="bar" style="justify-content:flex-start;gap:10px;margin-top:18px"><button class="btn" id="bk">Back up data</button><button class="btn" id="rs">Restore</button></div>
+  <div class="bar" style="justify-content:flex-start;margin-top:10px"><button class="btn" id="reset">Reset commands</button></div><p class="note">Stage 8 build, tested. Everything is saved on this device. Use Back up data to keep a copy in Files.</p>
+</section>
+
+</main>
+
+<div class="ed" id="ed"><h2 id="e-title">Edit</h2>
+<label class="f">What you say</label><input class="inp" id="e-t" autocomplete="off">
+<label class="f">Other phrases that do the same (one per line)</label><textarea class="inp" id="e-alt"></textarea>
+<div id="e-arow"><label class="f">Action</label><select id="e-a"></select></div>
+<label class="f">ARIA replies (one per line, she picks one at random)</label><textarea class="inp" id="e-r"></textarea>
+<p class="sub" style="margin:6px 0 0">Use {a} for the action's result and {name} for your name.</p>
+<div class="row" style="margin-top:10px"><div><b>Enabled</b></div><label class="sw"><input type="checkbox" id="e-on"><span></span></label></div>
+<p id="e-err" style="color:#ff9a9a;font-size:13px;min-height:18px;margin-top:8px"></p>
+<div class="acts"><button class="btn" id="e-save">Save</button><button class="btn" id="e-cancel">Cancel</button><button class="btn danger" id="e-del">Delete</button></div></div>
+<div class="ed" id="ne"><h2 id="n-title">Note</h2>
+<label class="f">Note</label><textarea class="inp" id="n-t"></textarea>
+<p id="n-err" style="color:#ff9a9a;font-size:13px;min-height:18px;margin-top:8px"></p>
+<div class="acts"><button class="btn" id="n-save">Save</button><button class="btn" id="n-cancel">Cancel</button><button class="btn danger" id="n-del">Delete</button></div></div>
+<input type="file" id="rf" accept="application/json,.json" hidden>
+<div class="sheet" id="sheet"><div class="grid" id="grid"></div></div>
+<nav id="nav">
+  <button data-go="core" class="on">Core</button>
+  <button data-go="chat">Chat</button>
+  <button data-go="commands">Commands</button>
+  <button data-go="voice">Voice</button>
+  <button id="menu">Menu</button>
+</nav>
+
+<script src="js/ui.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/commands.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/memory.js"></script>
+<script src="js/system.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>
